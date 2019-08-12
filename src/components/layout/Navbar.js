@@ -7,7 +7,7 @@ const Navbar = ({ icon, title }) => {
 		<nav className="navbar bg-primary">
 			<h1>
 				<i className={icon} />
-				{title}
+				<Link to="/">{title}</Link>
 			</h1>
 			<ul>
 				<li>
