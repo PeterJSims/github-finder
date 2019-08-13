@@ -12,21 +12,6 @@ import AlertState from './context/alert/AlertState';
 import './App.css';
 
 const App = () => {
-	//Connect api and use global variables to up limit of searches
-	//ADD BACK IN LATER
-	// useEffect(() => {
-	// 	setLoading(true);
-	// 	async function fetchData() {
-	// 		const res = await axios.get(
-	// 			`https://api.github.com/users?client_id=${process.env
-	// 				.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-	// 		);
-	// 		setLoading(false);
-	// 		setUsers(res.data);
-	// 	}
-	// 	fetchData();
-	// }, []);
-
 	return (
 		<GithubState>
 			<AlertState>
