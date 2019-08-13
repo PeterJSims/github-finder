@@ -13,37 +13,23 @@ import GithubState from './context/github/GithubState';
 import './App.css';
 
 const App = (props) => {
-	const [ users, setUsers ] = useState([]);
-	const [ user, setUser ] = useState({});
 	const [ repos, setRepos ] = useState([]);
 	const [ loading, setLoading ] = useState(false);
 	const [ alert, setAlert ] = useState(null);
 
 	//Connect api and use global variables to up limit of searches
-	useEffect(() => {
-		setLoading(true);
-		async function fetchData() {
-			const res = await axios.get(
-				`https://api.github.com/users?client_id=${process.env
-					.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-			);
-			setLoading(false);
-			setUsers(res.data);
-		}
-		fetchData();
-	}, []);
-
-	//Get a single user
-	const getUser = async (username) => {
-		setLoading(true);
-		const res = await axios.get(
-			`https://api.github.com/users/${username}?client_id=${process.env
-				.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-		);
-
-		setLoading(false);
-		setUser(res.data);
-	};
+	// useEffect(() => {
+	// 	setLoading(true);
+	// 	async function fetchData() {
+	// 		const res = await axios.get(
+	// 			`https://api.github.com/users?client_id=${process.env
+	// 				.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+	// 		);
+	// 		setLoading(false);
+	// 		setUsers(res.data);
+	// 	}
+	// 	fetchData();
+	// }, []);
 
 	//Get user's repos
 
@@ -56,12 +42,6 @@ const App = (props) => {
 
 		setLoading(false);
 		setRepos(res.data);
-	};
-
-	//Clear users from the state
-	const clearUsers = () => {
-		setLoading(false);
-		setUsers([]);
 	};
 
 	//Set alert
@@ -86,12 +66,8 @@ const App = (props) => {
 								path="/"
 								render={(props) => (
 									<Fragment>
-										<Search
-											clearUsers={clearUsers}
-											showClear={users.length > 0 ? true : false}
-											setAlert={handleAlert}
-										/>
-										<Users loading={loading} users={users} />
+										<Search setAlert={handleAlert} />
+										<Users />
 									</Fragment>
 								)}
 							/>
@@ -99,16 +75,7 @@ const App = (props) => {
 							<Route
 								exact
 								path="/user/:login"
-								render={(props) => (
-									<User
-										{...props}
-										getUser={getUser}
-										getUserRepos={getUserRepos}
-										user={user}
-										repos={repos}
-										loading={loading}
-									/>
-								)}
+								render={(props) => <User {...props} getUserRepos={getUserRepos} repos={repos} />}
 							/>
 						</Switch>
 					</div>
