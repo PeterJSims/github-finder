@@ -69,7 +69,7 @@ const User = ({ user, loading, getUser, getUserRepos, repos, match }) => {
 						<li>
 							{blog && (
 								<Fragment>
-									<strong>Website: </strong> {blog}
+									<strong>Website: </strong> <a href={blog}>{blog}</a>
 								</Fragment>
 							)}
 						</li>
